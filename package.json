@@ -1,0 +1,31 @@
+{
+  "name": "data-collector",
+  "version": "1.0.0",
+  "description": "data-collector application",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node ./src/server.ts",
+    "start": "nodemon ./dist/server.js",
+    "prod": "npm run build && npm run start"
+  },
+  "keywords": [],
+  "author": "Trum Gyorgy",
+  "license": "ISC",
+  "dependencies": {
+    "@types/cors": "^2.8.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.6",
+    "nodemon": "^2.0.2",
+    "pg": "^7.17.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.2",
+    "@types/pg": "^7.14.1",
+    "tslint": "^6.0.0",
+    "typescript": "^3.7.5"
+  }
+}
