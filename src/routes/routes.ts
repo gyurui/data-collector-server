@@ -1,54 +1,44 @@
-import { Request, Response } from "express";
+import { Request, Response, Application } from "express";
 import { UserController } from "../controllers/userController";
 import { DataController } from "../controllers/dataController";
-import {MeasurementController} from "../controllers/measurementController";
+import { MeasurementController } from "../controllers/measurementController";
 
 export class Routes {
+    public contactController: UserController = new UserController();
+    public dataController: DataController = new DataController();
+    public measurementController: MeasurementController = new MeasurementController();
 
-    public contactController: UserController = new UserController()
-    public dataController: DataController = new DataController()
-    public measurementController: MeasurementController = new MeasurementController()
-
-    public routes(app): void {
-        app.route('/')
-            .get((req: Request, res: Response) => {
-                res.status(200).send({
-                    message: `ok`
-                })
-            })
+    public routes(app: Application): void {
+        app.route("/").get((req: Request, res: Response) => {
+            res.status(200).send({
+                message: "ok",
+            });
+        });
 
         // Contact
-        app.route('/user')
-            .get(this.contactController.getUsers)
-            .post(this.contactController.addNewUser);
+        app.route("/user").get(this.contactController.getUsers).post(this.contactController.addNewUser);
 
         // Contact detail
-        app.route('/user/:userId')
+        app.route("/user/:userId")
             // get specific contact
             .get(this.contactController.getUserWithID)
             .put(this.contactController.updateUser)
-            .delete(this.contactController.deleteUser)
+            .delete(this.contactController.deleteUser);
 
-        app.route('/data')
-            .get(this.dataController.getAllData)
-            .post(this.dataController.addData)
+        app.route("/data").get(this.dataController.getAllData).post(this.dataController.addData);
 
-        app.route('/startMeasurement')
-            .post(this.dataController.setMeasurementId)
+        app.route("/startMeasurement").post(this.dataController.setMeasurementId);
 
-        app.route('/stopMeasurement')
-            .get(this.dataController.clearMeasurementId)
+        app.route("/stopMeasurement").get(this.dataController.clearMeasurementId);
 
         // Contact
-        app.route('/measurement')
-            .get(this.measurementController.getMeasurement)
-            .post(this.measurementController.addNewMeasurement);
+        app.route("/measurement").get(this.measurementController.getMeasurement).post(this.measurementController.addNewMeasurement);
 
         // Contact detail
-        app.route('/measurement/:measurementId')
+        app.route("/measurement/:measurementId")
             // get specific contact
             .get(this.measurementController.getMeasurementWithID)
             .put(this.measurementController.updateMeasurement)
-            .delete(this.measurementController.updateMeasurement)
+            .delete(this.measurementController.updateMeasurement);
     }
 }

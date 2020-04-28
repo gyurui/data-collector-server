@@ -5,10 +5,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 class App {
-
     public app: express.Application;
     public routePrv: Routes = new Routes();
-    public mongoUrl: string = 'mongodb://localhost:27017/admin';
+    public mongoUrl = "mongodb://localhost:27017/admin";
 
     constructor() {
         this.app = express();
@@ -18,16 +17,15 @@ class App {
         this.mongoSetup();
     }
 
-    private mongoSetup(): void{
+    private mongoSetup(): void {
         mongoose.Promise = global.Promise;
         mongoose.connect(this.mongoUrl);
     }
 
-    private config(): void{
+    private config(): void {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
-
 }
 
 export default new App().app;

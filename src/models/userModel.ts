@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface User extends Document {
     email: string;
@@ -13,29 +13,29 @@ export interface User extends Document {
 export const ContactSchema = new Schema({
     firstName: {
         type: String,
-        required: 'Enter a first name'
+        required: "Enter a first name",
     },
     lastName: {
         type: String,
-        required: 'Enter a last name'
+        required: "Enter a last name",
     },
     email: {
-        type: String
+        type: String,
     },
     company: {
-        type: String
+        type: String,
     },
     phone: {
-        type: Number
+        type: Number,
     },
     isAdmin: {
         type: Boolean,
-        default: false
+        default: false,
     },
     createdDate: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
-export default mongoose.model<User>('User', ContactSchema);
+export default mongoose.model<User>("User", ContactSchema);

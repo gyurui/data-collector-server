@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface SensorData {
     leftDesiredSpeed?: number;
@@ -27,73 +27,76 @@ export interface Data extends Document {
     measurementId: string;
 }
 
-export const DataSchema = new Schema({
-    measuredValues: {
-        leftDesiredSpeed: {
-            type: Number,
+export const DataSchema = new Schema(
+    {
+        measuredValues: {
+            leftDesiredSpeed: {
+                type: Number,
+            },
+            leftMeasuredSpeed: {
+                type: Number,
+            },
+            leftPidSignal: {
+                type: Number,
+            },
+            rightDesiredSpeed: {
+                type: Number,
+            },
+            rightMeasuredSpeed: {
+                type: Number,
+            },
+            rightPidSignal: {
+                type: Number,
+            },
+            carRealSpeed: {
+                type: Number,
+            },
+            rotationRatio: {
+                type: Number,
+            },
+            gyroscopeX: {
+                type: Number,
+            },
+            gyroscopeY: {
+                type: Number,
+            },
+            gyroscopeZ: {
+                type: Number,
+            },
+            accelerometerX: {
+                type: Number,
+            },
+            accelerometerY: {
+                type: Number,
+            },
+            accelerometerZ: {
+                type: Number,
+            },
+            batteryLevel: {
+                type: Number,
+            },
+            gpsLatitude: {
+                type: String,
+            },
+            gpsLongitude: {
+                type: String,
+            },
         },
-        leftMeasuredSpeed: {
-            type: Number,
+        sendDate: {
+            type: Date,
+            required: true,
         },
-        leftPidSignal: {
-            type: Number,
+        measurementId: {
+            type: String,
+            required: true,
+            default: "bad measurement id",
         },
-        rightDesiredSpeed: {
-            type: Number,
-        },
-        rightMeasuredSpeed: {
-            type: Number,
-        },
-        rightPidSignal: {
-            type: Number,
-        },
-        carRealSpeed: {
-            type: Number,
-        },
-        rotationRatio: {
-            type: Number,
-        },
-        gyroscopeX: {
-            type: Number,
-        },
-        gyroscopeY: {
-            type: Number,
-        },
-        gyroscopeZ: {
-            type: Number,
-        },
-        accelerometerX: {
-            type: Number,
-        },
-        accelerometerY: {
-            type: Number,
-        },
-        accelerometerZ: {
-            type: Number,
-        },
-        batteryLevel: {
-            type: Number,
-        },
-        gpsLatitude: {
-            type: String
-        },
-        gpsLongitude: {
-            type: String
+        createdDate: {
+            type: Date,
+            default: Date.now,
         },
     },
-    sendDate: {
-        type: Date,
-        required: true,
-    },
-    measurementId: {
-        type: String,
-        required: true,
-        default: "rossz",
-    },
-    createdDate: {
-        type: Date,
-        default: Date.now
-    }
-}, { collection: 'data' });
+    { collection: "data" },
+);
 
-export default mongoose.model<Data>('Data', DataSchema);
+export default mongoose.model<Data>("Data", DataSchema);

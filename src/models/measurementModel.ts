@@ -1,5 +1,5 @@
-import mongoose, { Schema, Document } from 'mongoose';
-import {User} from "@src/models/userModel";
+import mongoose, { Schema, Document } from "mongoose";
+import { User } from "@src/models/userModel";
 
 export interface Measurement extends Document {
     name: string;
@@ -10,15 +10,15 @@ export interface Measurement extends Document {
 export const MeasurementSchema = new Schema({
     name: {
         type: String,
-        required: 'Enter a measurement name'
+        required: "Enter a measurement name",
     },
     ownerUser: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: true,
     },
     description: {
-        type: String
+        type: String,
     },
 });
 
-export default mongoose.model<Measurement>('Measurement', MeasurementSchema);
+export default mongoose.model<Measurement>("Measurement", MeasurementSchema);
