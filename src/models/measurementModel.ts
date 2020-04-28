@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import {User} from "@src/models/crmModel";
+import {User} from "@src/models/userModel";
 
 export interface Measurement extends Document {
     name: string;

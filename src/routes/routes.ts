@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { ContactController } from "../controllers/crmController";
+import { UserController } from "../controllers/userController";
 import { DataController } from "../controllers/dataController";
 import {MeasurementController} from "../controllers/measurementController";
 
 export class Routes {
 
-    public contactController: ContactController = new ContactController()
+    public contactController: UserController = new UserController()
     public dataController: DataController = new DataController()
     public measurementController: MeasurementController = new MeasurementController()
 
@@ -18,24 +18,26 @@ export class Routes {
             })
 
         // Contact
-        app.route('/contact')
-            .get(this.contactController.getContacts)
-            .post(this.contactController.addNewContact);
+        app.route('/user')
+            .get(this.contactController.getUsers)
+            .post(this.contactController.addNewUser);
 
         // Contact detail
-        app.route('/contact/:contactId')
+        app.route('/user/:userId')
             // get specific contact
-            .get(this.contactController.getContactWithID)
-            .put(this.contactController.updateContact)
-            .delete(this.contactController.deleteContact)
+            .get(this.contactController.getUserWithID)
+            .put(this.contactController.updateUser)
+            .delete(this.contactController.deleteUser)
 
         app.route('/data')
             .get(this.dataController.getAllData)
             .post(this.dataController.addData)
 
-        app.route('/data/measurementId')
-            .get(this.dataController.clearMeasurementId)
+        app.route('/startMeasurement')
             .post(this.dataController.setMeasurementId)
+
+        app.route('/stopMeasurement')
+            .get(this.dataController.clearMeasurementId)
 
         // Contact
         app.route('/measurement')

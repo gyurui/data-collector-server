@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import User from "../models/crmModel";
+import User from "../models/userModel";
 
-export class ContactController {
-    public addNewContact (req: Request, res: Response) {
+export class UserController {
+    public addNewUser (req: Request, res: Response) {
         const newContact = new User(req.body);
         newContact.save((err, contact) => {
             if(err){
@@ -12,7 +12,7 @@ export class ContactController {
         });
     }
 
-    public getContacts (req: Request, res: Response) {
+    public getUsers (req: Request, res: Response) {
         User.find({}, (err, user) => {
             if(err){
                 res.send(err);
@@ -21,8 +21,8 @@ export class ContactController {
         });
     }
 
-    public getContactWithID = (req: Request, res: Response) =>  {
-        User.findById(req.params.contactId, (err, user) => {
+    public getUserWithID = (req: Request, res: Response) =>  {
+        User.findById(req.params.userId, (err, user) => {
             if(err){
                 res.send(err);
             }
@@ -30,8 +30,8 @@ export class ContactController {
         });
     }
 
-    public updateContact (req: Request, res: Response) {
-        User.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
+    public updateUser (req: Request, res: Response) {
+        User.findOneAndUpdate({ _id: req.params.userId }, req.body, { new: true }, (err, contact) => {
             if(err){
                 res.send(err);
             }
@@ -39,12 +39,12 @@ export class ContactController {
         });
     }
 
-    public deleteContact (req: Request, res: Response) {
-        User.remove({ _id: req.params.contactId }, (err) => {
+    public deleteUser (req: Request, res: Response) {
+        User.remove({ _id: req.params.userId }, (err) => {
             if(err){
                 res.send(err);
             }
-            res.json({ message: 'Successfully deleted contact!'});
+            res.json({ message: 'Successfully deleted user!'});
         });
     }
 }
