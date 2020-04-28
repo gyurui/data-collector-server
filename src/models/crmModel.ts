@@ -1,6 +1,14 @@
-import * as mongoose from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-const Schema = mongoose.Schema;
+export interface User extends Document {
+    email: string;
+    firstName: string;
+    lastName: string;
+    company?: string;
+    phone?: number;
+    isAdmin: boolean;
+    createdDate?: Date;
+}
 
 export const ContactSchema = new Schema({
     firstName: {
@@ -20,8 +28,14 @@ export const ContactSchema = new Schema({
     phone: {
         type: Number
     },
-    created_date: {
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    createdDate: {
         type: Date,
         default: Date.now
     }
 });
+
+export default mongoose.model<User>('User', ContactSchema);

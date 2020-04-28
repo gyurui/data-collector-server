@@ -1,14 +1,9 @@
-import * as mongoose from 'mongoose';
 import { Request, Response } from 'express';
-import {ContactSchema} from "../models/crmModel";
-const Contact = mongoose.model('Contact', ContactSchema);
+import User from "../models/crmModel";
 
 export class ContactController {
-    public lastId = "We dont have any ID yet";
-
     public addNewContact (req: Request, res: Response) {
-        const newContact = new Contact(req.body);
-
+        const newContact = new User(req.body);
         newContact.save((err, contact) => {
             if(err){
                 res.send(err);
@@ -18,27 +13,25 @@ export class ContactController {
     }
 
     public getContacts (req: Request, res: Response) {
-        Contact.find({}, (err, contact) => {
+        User.find({}, (err, user) => {
             if(err){
                 res.send(err);
             }
-            res.json(contact);
+            res.json(user);
         });
     }
 
     public getContactWithID = (req: Request, res: Response) =>  {
-        // Contact.findById(req.params.contactId, (err, contact) => {
-        //     if(err){
-        //         res.send(err);
-        //     }
-        //     res.json(contact);
-        // });
-        this.lastId = req.params.contactId.toString();
-        res.json({"hello": req.params.contactId});
+        User.findById(req.params.contactId, (err, user) => {
+            if(err){
+                res.send(err);
+            }
+            res.json(user);
+        });
     }
 
     public updateContact (req: Request, res: Response) {
-        Contact.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
+        User.findOneAndUpdate({ _id: req.params.contactId }, req.body, { new: true }, (err, contact) => {
             if(err){
                 res.send(err);
             }
@@ -47,7 +40,7 @@ export class ContactController {
     }
 
     public deleteContact (req: Request, res: Response) {
-        Contact.remove({ _id: req.params.contactId }, (err, contact) => {
+        User.remove({ _id: req.params.contactId }, (err) => {
             if(err){
                 res.send(err);
             }
