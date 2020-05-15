@@ -4,6 +4,8 @@ export interface User extends Document {
     email: string;
     firstName: string;
     lastName: string;
+    userName: string;
+    password: string;
     company?: string;
     phone?: number;
     isAdmin: boolean;
@@ -19,8 +21,17 @@ export const ContactSchema = new Schema({
         type: String,
         required: "Enter a last name",
     },
+    userName: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
+        required: true,
     },
     company: {
         type: String,

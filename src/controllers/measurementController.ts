@@ -42,12 +42,12 @@ export class MeasurementController {
         });
     }
 
-    // public deleteMeasurement(req: Request, res: Response) {
-    //     Measurement.remove({ _id: req.params.measurentID }, (err) => {
-    //         if (err) {
-    //             res.send(err);
-    //         }
-    //         res.json({ message: "Successfully deleted contact!" });
-    //     });
-    // }
+    public deleteMeasurement(req: Request, res: Response) {
+        Measurement.remove({ _id: req.params.measurentID }, (err) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: "Successfully deleted contact!" });
+        });
+    }
 }

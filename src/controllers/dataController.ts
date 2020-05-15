@@ -34,16 +34,12 @@ export class DataController {
         if (this.measurementId && !(this.measurementId === "")) {
             const data = { ...req.body, ...{ measurementId: this.measurementId } };
             console.log(data);
-            new Data(data)
-                .save((err, resData) => {
-                    if (err) {
-                        res.send(err);
-                    }
-                    res.json(resData);
-                })
-                .then((r) => {
-                    console.log(r);
-                });
+            new Data(data).save((err, resData) => {
+                if (err) {
+                    res.send(err);
+                }
+                res.json(resData);
+            });
         } else {
             const error = { error: "Wrong measurement id" };
             console.log(error);
@@ -52,20 +48,29 @@ export class DataController {
     };
 
     public getAllData(req: Request, res: Response) {
-        Data.find({}, (err, contact) => {
+        Data.find({}, (err, data) => {
             if (err) {
                 res.send(err);
             }
-            res.json(contact);
+            res.json(data);
         });
     }
 
-    // public deleteData(req: Request, res: Response) {
-    //     Data.remove({ _id: req.params.dataId }, (err) => {
-    //         if (err) {
-    //             res.send(err);
-    //         }
-    //         res.json({ message: "Successfully deleted contact!" });
-    //     });
-    // }
+    public getDataWithMeasurementId = (req: Request, res: Response) => {
+        Data.find({ measurementId: req.query.measurementId }, (err, data) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(data);
+        });
+    };
+
+    public deleteData(req: Request, res: Response) {
+        Data.remove({ _id: req.params.dataId }, (err) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ message: "Successfully deleted contact!" });
+        });
+    }
 }

@@ -15,6 +15,10 @@ export interface SensorData {
     accelerometerX?: number;
     accelerometerY?: number;
     accelerometerZ?: number;
+    magnetometerX?: number;
+    magnetometerY?: number;
+    magnetometerZ?: number;
+    pressure?: number;
     batteryLevel?: number;
     gpsLatitude?: number;
     gpsLongitude?: number;
@@ -72,7 +76,19 @@ export const DataSchema = new Schema(
             accelerometerZ: {
                 type: Number,
             },
+            magnetometerX: {
+                type: Number,
+            },
+            magnetometerY: {
+                type: Number,
+            },
+            magnetometerZ: {
+                type: Number,
+            },
             batteryLevel: {
+                type: Number,
+            },
+            pressure: {
                 type: Number,
             },
             gpsLatitude: {
