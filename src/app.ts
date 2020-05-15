@@ -7,7 +7,7 @@ import cors from "cors";
 class App {
     public app: express.Application;
     public routePrv: Routes = new Routes();
-    public mongoUrl = "mongodb://localhost:27017/admin";
+    public mongoUrl = process.env.MONGODB_URI || "mongodb://localhost:27017/admin";
 
     constructor() {
         this.app = express();

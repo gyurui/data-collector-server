@@ -21,7 +21,8 @@
       "./node_modules/@types"
     ],
     "lib": [
-      "es2015"
+      "es2018",
+      "dom"
     ]
   },
   "include": [
