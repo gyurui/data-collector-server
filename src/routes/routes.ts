@@ -24,7 +24,7 @@ export class Routes {
             (async () => {
                 const browser = await puppeteer.launch();
                 const page = await browser.newPage();
-                await page.goto("http://localhost:3000/");
+                await page.goto("https://dms-admin.herokuapp.com/");
                 await page.emulateMediaType("screen");
                 const date = new Date().toISOString().split(":").join("").split(".").join("");
                 const pdfName = `report_${date}.pdf`;
