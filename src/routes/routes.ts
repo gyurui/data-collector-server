@@ -22,7 +22,10 @@ export class Routes {
 
         app.route("/generateReport").get((req: Request, res: Response) => {
             (async () => {
-                const browser = await puppeteer.launch();
+                const browser = await puppeteer.launch({
+                    headless: true,
+                    args: ["--no-sandbox"],
+                });
                 const page = await browser.newPage();
                 await page.goto("https://dms-admin.herokuapp.com/");
                 await page.emulateMediaType("screen");
