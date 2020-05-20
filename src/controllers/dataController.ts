@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import Data from "../models/dataModel";
+import latex from "node-latex";
+import fs from "fs";
+import pdflatex from "node-pdflatex";
 
 interface PlotData {
     x: number;
@@ -71,6 +74,63 @@ export class DataController {
                 res.send(err);
             }
             res.json({ message: "Successfully deleted contact!" });
+        });
+    }
+
+    public getLatex(req: Request, res: Response) {
+        Data.find({}, async (err, data) => {
+            if (err) {
+                res.send(err);
+            }
+
+            const source = `
+                \\documentclass{article}
+                \\usepackage[utf8]{inputenc}
+                \\usepackage{pgfplots}
+
+
+                \\title{Universe}
+                \\author{gyuri.trum }
+                \\date{May 2020}
+
+                \\usepackage{natbib}
+                \\usepackage{graphicx}
+                \\usepackage{listings}
+
+                \\begin{document}
+
+                \\maketitle
+
+                \\section{Introduction}
+                There is a theory which states that if ever anyone discovers exactly what the Universe is for and why it is here, it will instantly disappear and be replaced by something even more bizarre and inexplicable.
+                There is another theory which states that this has already happened.
+
+                \\section{Conclusion}
+                \`\`I always thought something was fundamentally wrong with the universe''
+
+                \\section{Data}
+
+
+                \\bibliographystyle{plain}
+                \\bibliography{references}
+                \\end{document}
+                `;
+
+            const input = fs.createReadStream("./latex/main.tex");
+            const output = fs.createWriteStream("./latex/output.pdf");
+            // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+            // @ts-ignore
+            const pdf = latex(input);
+
+            await pdf.pipe(output);
+            pdf.on("error", (error: Error) => console.error(error));
+            pdf.on("finish", () => {
+                console.log("PDF generated!");
+
+                const generatedPdf = fs.readFileSync("./latex/output.pdf");
+                res.contentType("application/pdf");
+                res.status(200).send(generatedPdf);
+            });
         });
     }
 }

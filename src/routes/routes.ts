@@ -87,6 +87,8 @@ export class Routes {
 
         app.route("/data").get(this.dataController.getAllData).post(this.dataController.addData);
 
+        app.route("/data/latex").get(this.dataController.getLatex);
+
         app.route("/data/measurement").get(this.dataController.getDataWithMeasurementId);
 
         app.route("/startMeasurement").post(this.dataController.setMeasurementId);

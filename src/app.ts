@@ -9,9 +9,13 @@ class App {
     public routePrv: Routes = new Routes();
     public mongoUrl = process.env.MONGODB_URI || "mongodb://localhost:27017/admin";
 
+    private corsOptions = {
+        origin: "https://dms-admin.herokuapp.com",
+    };
+
     constructor() {
         this.app = express();
-        this.app.use(cors());
+        this.app.use(cors(this.corsOptions));
         this.config();
         this.routePrv.routes(this.app);
         this.mongoSetup();
