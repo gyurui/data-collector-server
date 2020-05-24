@@ -3,16 +3,12 @@ import Measurement from "../models/measurementModel";
 
 export class MeasurementController {
     public addNewMeasurement(req: Request, res: Response) {
-        new Measurement(req.body)
-            .save((err, contact) => {
-                if (err) {
-                    res.send(err);
-                }
-                res.json(contact);
-            })
-            .then((r) => {
-                console.log(r);
-            });
+        new Measurement(req.body).save((err, contact) => {
+            if (err) {
+                res.send(err);
+            }
+            res.json(contact);
+        });
     }
 
     public getMeasurement(req: Request, res: Response) {
