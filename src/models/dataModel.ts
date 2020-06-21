@@ -4,11 +4,17 @@ export interface SensorData {
     leftDesiredSpeed?: number;
     leftMeasuredSpeed?: number;
     leftPidSignal?: number;
+    leftDirection?: number;
     rightDesiredSpeed?: number;
     rightMeasuredSpeed?: number;
     rightPidSignal?: number;
+    rightDirection?: number;
     carRealSpeed?: number;
+    carDirection?: number;
     rotationRatio?: number;
+    actualRotationRatio?: number;
+    realPositionX?: number;
+    realPositionY?: number;
     gyroscopeX?: number;
     gyroscopeY?: number;
     gyroscopeZ?: number;
@@ -18,6 +24,11 @@ export interface SensorData {
     magnetometerX?: number;
     magnetometerY?: number;
     magnetometerZ?: number;
+    cameraPositionX?: number;
+    cameraPositionY?: number;
+    cameraSpeed?: number;
+    cameraDistance?: number;
+    cameraTime?: number;
     pressure?: number;
     batteryLevel?: number;
     gpsLatitude?: number;
@@ -43,6 +54,9 @@ export const DataSchema = new Schema(
             leftPidSignal: {
                 type: Number,
             },
+            leftDirection: {
+                type: Number,
+            },
             rightDesiredSpeed: {
                 type: Number,
             },
@@ -53,6 +67,36 @@ export const DataSchema = new Schema(
                 type: Number,
             },
             carRealSpeed: {
+                type: Number,
+            },
+            carDirection: {
+                type: Number,
+            },
+            rightDirection: {
+                type: Number,
+            },
+            actualRotationRation: {
+                type: Number,
+            },
+            cameraPositionX: {
+                type: Number,
+            },
+            cameraPositionY: {
+                type: Number,
+            },
+            cameraSpeed: {
+                type: Number,
+            },
+            cameraDistance: {
+                type: Number,
+            },
+            cameraTime: {
+                type: Number,
+            },
+            realPositionX: {
+                type: Number,
+            },
+            realPositionY: {
                 type: Number,
             },
             rotationRatio: {

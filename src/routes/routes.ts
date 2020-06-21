@@ -20,14 +20,15 @@ export class Routes {
             });
         });
 
-        app.route("/generateReport").get((req: Request, res: Response) => {
+        app.route("/generateReport/:measurementId").get((req: Request, res: Response) => {
             (async () => {
                 const browser = await puppeteer.launch({
                     headless: true,
                     args: ["--no-sandbox"],
                 });
                 const page = await browser.newPage();
-                await page.goto("https://dms-admin.herokuapp.com/");
+                await page.goto(`https://dms-admin.herokuapp.com/template?measurementId=${req.params.measurementId}`, { waitUntil: "networkidle2" });
+                await page.waitForSelector(".data");
                 await page.emulateMediaType("screen");
                 const date = new Date().toISOString().split(":").join("").split(".").join("");
                 const pdfName = `report_${date}.pdf`;
@@ -35,7 +36,7 @@ export class Routes {
                     path: `./pdf/${pdfName}`, // path (relative to CWD) to save the PDF to.
                     printBackground: true, // print background colors
                     width: "612px", // match the css width and height we set for our PDF
-                    height: "792px",
+                    height: "1224px",
                 });
                 await browser.close();
 
@@ -95,12 +96,11 @@ export class Routes {
 
         app.route("/stopMeasurement").get(this.dataController.clearMeasurementId);
 
-        // Contact
+        // Measurement
         app.route("/measurement").get(this.measurementController.getMeasurement).post(this.measurementController.addNewMeasurement);
 
-        // Contact detail
+        // Measurement detail
         app.route("/measurement/:measurementId")
-            // get specific contact
             .get(this.measurementController.getMeasurementWithID)
             .put(this.measurementController.updateMeasurement)
             .delete(this.measurementController.deleteMeasurement);

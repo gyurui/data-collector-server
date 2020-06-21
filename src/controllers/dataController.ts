@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import Data from "../models/dataModel";
 import latex from "node-latex";
 import fs from "fs";
-import pdflatex from "node-pdflatex";
 
 interface PlotData {
     x: number;

@@ -10,7 +10,7 @@ class App {
     public mongoUrl = process.env.MONGODB_URI || "mongodb://localhost:27017/admin";
 
     private corsOptions = {
-        origin: "https://dms-admin.herokuapp.com",
+        origin: ["http://localhost:3000", "https://dms-admin.herokuapp.com"],
     };
 
     constructor() {

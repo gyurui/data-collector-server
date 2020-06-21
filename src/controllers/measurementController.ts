@@ -39,7 +39,7 @@ export class MeasurementController {
     }
 
     public deleteMeasurement(req: Request, res: Response) {
-        Measurement.remove({ _id: req.params.measurentID }, (err) => {
+        Measurement.deleteOne({ _id: req.params.measurementId }, (err) => {
             if (err) {
                 res.send(err);
             }
